@@ -1,0 +1,16 @@
+main: de.dopebrot.itemapi.Main
+name: "ItemAPI"
+version: @project.version@
+authors:  ["DopeBrot","Hptlo"]
+description: "A plugin for development purposes to make items simpler."
+api-version: "1.18"
+prefix: "[ITEMAPI]"
+commands:
+  itemapi-help:
+    description: "Gives detail what this plugin can do."
+    permission: "dp.itemapi.help.command"
+    usage: "help"
+  itemapi-test:
+    description: "devs only Test's if the plugin is running."
+    permission: "dp.itemapi.dev.test"
+    usage: "test"
