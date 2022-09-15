@@ -1,11 +1,11 @@
 package de.dopebrot.dopeapi.command;
+import de.dopebrot.dopeapi.helper.DPCommand;
 import de.dopebrot.dopeapi.DPItem;
 import de.dopebrot.dopeapi.Main;
 import de.dopebrot.dopeapi.helper.DPColor;
 import de.dopebrot.dopeapi.helper.DPEnchantment;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -13,17 +13,13 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class TestCommand implements CommandExecutor {
+public class TestCommand implements DPCommand {
 
 	private final Main main;
 
 	public TestCommand(Main main) {
 		this.main = main;
 	}
-
-	public final String commandName = "itemapi-test";
-
-	public final String[] permissions = new String[]{".dev.test"};
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -40,13 +36,25 @@ public class TestCommand implements CommandExecutor {
 				} else {
 					player.sendMessage("item cant be added");
 				}
-
 				player.sendMessage(DPColor.CHAT_GOLD.getPrefix() + DPColor.CHAT_UNDERLINE.getPrefix() + "this message is in gold and underlined");
 				player.sendMessage(DPColor.CHAT_RED.getPrefix() + DPColor.CHAT_ITALIC.getPrefix() + "this message is in red and italic");
 				return true;
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public String[] getPermissions() {
+		return new String[]{".dev.test"};
+	}
+	@Override
+	public String getCommandName() {
+		return "itemapi-test";
+	}
+	@Override
+	public void onDebug() {
+		main.log(getCommandName() + " is working fine");
 	}
 
 }

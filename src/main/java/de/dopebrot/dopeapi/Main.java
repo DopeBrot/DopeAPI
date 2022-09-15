@@ -2,8 +2,7 @@ package de.dopebrot.dopeapi;
 
 import de.dopebrot.dopeapi.command.HelpCommand;
 import de.dopebrot.dopeapi.command.TestCommand;
-import org.bukkit.Bukkit;
-import org.bukkit.permissions.Permission;
+import de.dopebrot.dopeapi.helper.DPCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;

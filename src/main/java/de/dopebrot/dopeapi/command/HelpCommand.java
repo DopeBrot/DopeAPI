@@ -1,8 +1,7 @@
 package de.dopebrot.dopeapi.command;
-import de.dopebrot.dopeapi.DPCommand;
+import de.dopebrot.dopeapi.helper.DPCommand;
 import de.dopebrot.dopeapi.Main;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -14,10 +13,6 @@ public class HelpCommand implements DPCommand {
 	public HelpCommand(Main main) {
 		this.main = main;
 	}
-
-	public final String[] permissions = new String[]{".help.command"};
-
-	public final String commandName = "itemapi-help";
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -37,6 +32,9 @@ public class HelpCommand implements DPCommand {
 	public String getCommandName() {
 		return "DP-itemhelp";
 	}
-
+	@Override
+	public void onDebug() {
+		main.log(getCommandName() + " is working fine");
+	}
 
 }
