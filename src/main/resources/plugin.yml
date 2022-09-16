@@ -4,13 +4,13 @@ version: @project.version@
 authors:  ["DopeBrot","Hptlo"]
 description: "A plugin for development purposes to make plugins simpler."
 api-version: "1.18"
-prefix: "[DP-API]"
+prefix: "DP-API"
 commands:
-  itemapi-help:
+  dpapi-item-help:
     description: "Gives detail what the item functions can do."
-    permission: "dp.dpapit.item.help.command"
+    permission: "dp.dpapi.item.help.command"
     usage: "help"
-  itemapi-test:
+  dpapi-item-test:
     description: "devs only Test's if the item functions are running correctly."
     permission: "dp.dpapi.item.dev.test"
     usage: "test"
