@@ -1,32 +1,35 @@
 package de.dopebrot.dopeapi.helper;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.*;
-import java.util.concurrent.BrokenBarrierException;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 public class LanguageHelper {
 
-	private Map<String, String> text;
-	/**
-	 * @param name represents the name of the file e.g (eng/de/it)
-	 * @param path relative path to server eg (plugins/PLUGINNAME/lang)
-	 */
-
+	private final Map<String, String> text;
 	private final String name;
 	private final String path;
 	private final String prefix;
 	private final YamlConfiguration yamlConfiguration;
 	private final File file;
-	private boolean debugLoad = false;
+	private boolean usingPrefix = true;
+	private boolean debug = false;
 	private boolean isLoaded = false;
+	private String errorString = "Error [$key$] was not found! report this to an Administrator";
 
+	/**
+	 * @param name   Name of the Language
+	 * @param path   The path where the file is saved
+	 * @param prefix prefix of language
+	 * @apiNote if you use this, put it in a main and write a method that uses a message getter.
+	 */
 	public LanguageHelper(String name, String path, String prefix) {
 		this.text = new LinkedHashMap<>();
 		this.name = name;
@@ -36,50 +39,69 @@ public class LanguageHelper {
 		this.prefix = prefix;
 	}
 
-	public void debugLoad(boolean b) {
-		debugLoad = b;
+	/**
+	 * @param s new error message
+	 * @apiNote add string "$key$" to get key name!
+	 */
+	public void setErrorString(String s) {
+		errorString = s;
+	}
+	public void usingPrefix(boolean b) {
+		usingPrefix = b;
 	}
 
+	/**
+	 * @param b sets debug mode on or off
+	 */
+	public void setDebug(boolean b) {
+		debug = b;
+		if (debug) {
+			Bukkit.getLogger().log(Level.INFO, "Language " + name + " debug messages will now appear");
+		} else {
+			Bukkit.getLogger().log(Level.INFO, "Language " + name + " debug messages will not appear anymore");
+		}
+	}
+
+	/**
+	 * loads the File in one Map
+	 * on the first load {@code isLoaded} is set to true
+	 */
 	public void load() {
 		if (!this.isLoaded) {
 			this.isLoaded = true;
 		}
-
-		if (yamlConfiguration.contains(prefix)) {
-			Bukkit.getLogger().log(Level.INFO, prefix + " exists");
-		}
-
-		Bukkit.getLogger().log(Level.INFO, "AAA: " + yamlConfiguration.getString("de.main_load"));
-
 		List<String> list = yamlConfiguration.getConfigurationSection(prefix).getValues(false).keySet().stream().toList();
 		for (String s : list) {
-			Bukkit.getLogger().log(Level.INFO, "db : " + s + " val:" + yamlConfiguration.getString(s));
-			text.put(s, yamlConfiguration.getString(prefix + "." + s));
+			String value = yamlConfiguration.getString(prefix + "." + s);
+			assert value != null;
+			text.put(s, value);
 		}
-		if (debugLoad) {
-			Bukkit.getLogger().log(Level.INFO, "language " + name + " was loaded");
+		if (debug) {
+			Bukkit.getLogger().log(Level.INFO, "Language [" + name + "] (" + prefix + ") was loaded");
 		}
 
 	}
 
-	public String getString(String value) {
-		Bukkit.getLogger().log(Level.INFO, "input before : " + value);
-		value = value.replaceAll("\\.", "_");
-		Bukkit.getLogger().log(Level.INFO, "input after : " + value);
+	/**
+	 * @param key e.g. ("command.help.permission")
+	 * @return String from key e.g. ("you can't access this command!")
+	 */
+	public String getString(String key) {
+		Validate.notNull(key, "key can't be null!");
+		Validate.notEmpty(key, "key can't be empty!");
+		key = key.replaceAll("\\.", "_");
 		if (!isLoaded) {
-			return "language is not loaded!";
+			Bukkit.getLogger().log(Level.WARNING, "Language [" + name + "] (" + prefix + ") is not loaded!");
 		}
-
-		String[] a = text.keySet().toArray(new String[0]);
-		for (String s : a) {
-			Bukkit.getLogger().log(Level.INFO, prefix + " lang:[" + s + "]");
+		if (text.containsKey(key)) {
+			if (usingPrefix) {
+				if (text.get(key).contains("$prefix$")) {
+					return text.get(key).replace("$prefix$", text.get("prefix"));
+				}
+			}
+			return text.get(key);
 		}
-
-		if (text.containsKey(value)) {
-			return text.get(value);
-		}
-
-		return "text [" + value + "] not found!";
+		return errorString.replace("$key$", key);
 	}
 
 	/**
@@ -110,12 +132,22 @@ public class LanguageHelper {
 		}
 	}
 
+	/**
+	 * saves file at path
+	 *
+	 * @throws RuntimeException when file can't be created
+	 */
 	public void save() {
 		if (!file.exists()) {
+			if (file.mkdirs()) {
+				Bukkit.getLogger().log(Level.CONFIG, "create language dirs [" + name + "]");
+			}
 			try {
-				file.createNewFile();
-				save();
-				return;
+				if (file.createNewFile()) {
+					Bukkit.getLogger().log(Level.CONFIG, "create language file [" + name + "]");
+				}
+				Bukkit.getLogger().log(Level.SEVERE, "Could not create language file");
+				Bukkit.getLogger().log(Level.SEVERE, "path [" + path + name + ".yml]");
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -124,7 +156,8 @@ public class LanguageHelper {
 		try {
 			yamlConfiguration.save(file);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			Bukkit.getLogger().log(Level.SEVERE, "Could not save Language file");
+			Bukkit.getLogger().log(Level.SEVERE, "path [" + path + name + ".yml]");
 		}
 	}
 
