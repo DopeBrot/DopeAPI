@@ -24,22 +24,25 @@ public class TestCommand implements DPCommand {
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (sender instanceof Player player) {
-			if (player.hasPermission(main.permissionBase + ".dev.test")) {
-				player.getInventory().addItem(new DPItem().setDisplayName(new DPItem().getHead("DopeBrot"), "§a[§bT§ce§ds§et§r]"));
-				player.getInventory().addItem(new DPItem().setDisplayName(new DPItem().setEnchantment(new DPItem().addFlag(new ItemStack(Material.BONE), new ItemFlag[]{ItemFlag.HIDE_ENCHANTS}), new Enchantment[]{DPEnchantment.KNOCKBACK.enchantment}, new int[]{16}), "Bone with hidden Knockback enchantment level 1"));
-				player.getInventory().addItem(new DPItem().addAmount(new ItemStack(Material.GLOWSTONE, 1), 13));
-				player.getInventory().addItem(new DPItem().addLore(new DPItem().setLore(new ItemStack(Material.PAPER), new String[]{DPColor.CHAT_RED.getPrefix() + "this is line 1 red", DPColor.CHAT_BLUE.getPrefix() + "this is line 2 blue", DPColor.CHAT_YELLOW.getPrefix() + "and line 3 yellow"}), new String[]{DPColor.CHAT_GREEN.getPrefix() + "green added line to line 3"}, 2));
-				ItemStack canAddItemStack = new DPItem().setDisplayName(new ItemStack(Material.STICK, 1), "checker if this item can be added to your inventory");
-				if (new DPItem().canAddItem(player.getInventory(), canAddItemStack)) {
-					player.sendMessage("item can be added");
-					player.getInventory().addItem(canAddItemStack);
-				} else {
-					player.sendMessage("item cant be added");
-				}
-				player.sendMessage(DPColor.CHAT_GOLD.getPrefix() + DPColor.CHAT_UNDERLINE.getPrefix() + "this message is in gold and underlined");
-				player.sendMessage(DPColor.CHAT_RED.getPrefix() + DPColor.CHAT_ITALIC.getPrefix() + "this message is in red and italic");
-				return true;
+			if (!player.hasPermission(main.permissionBase + ".dev.test")) {
+				player.sendMessage(main.getString("command.permission"));
+				return false;
 			}
+
+			player.getInventory().addItem(new DPItem().setDisplayName(new DPItem().getHead("DopeBrot"), main.getString("command.test.itemname.head")));
+			player.getInventory().addItem(new DPItem().setDisplayName(new DPItem().setEnchantment(new DPItem().addFlag(new ItemStack(Material.BONE), new ItemFlag[]{ItemFlag.HIDE_ENCHANTS}), new Enchantment[]{DPEnchantment.KNOCKBACK.enchantment}, new int[]{16}), main.getString("command.test.itemname.bone")));
+			player.getInventory().addItem(new DPItem().addAmount(new ItemStack(Material.GLOWSTONE, 1), 13));
+			player.getInventory().addItem(new DPItem().addLore(new DPItem().setLore(new ItemStack(Material.PAPER), new String[]{DPColor.CHAT_RED.getPrefix() + main.getString("command.test.itemlore.line0"), DPColor.CHAT_BLUE.getPrefix() + main.getString("command.test.itemlore.line1"), DPColor.CHAT_YELLOW.getPrefix() + main.getString("command.test.itemlore.line2")}), new String[]{DPColor.CHAT_GREEN.getPrefix() + main.getString("command.test.itemlore.addedline")}, 2));
+			ItemStack canAddItemStack = new DPItem().setDisplayName(new ItemStack(Material.STICK, 1), "checker if this item can be added to your inventory");
+			if (new DPItem().canAddItem(player.getInventory(), canAddItemStack)) {
+				player.sendMessage(main.getString("command.test.item.canadd"));
+				player.getInventory().addItem(canAddItemStack);
+			} else {
+				player.sendMessage(main.getString("command.test.item.cantadd"));
+			}
+			player.sendMessage(DPColor.CHAT_GOLD.getPrefix() + DPColor.CHAT_UNDERLINE.getPrefix() + main.getString("command.test.colormessage0"));
+			player.sendMessage(DPColor.CHAT_RED.getPrefix() + DPColor.CHAT_ITALIC.getPrefix() + main.getString("command.test.colormessage1"));
+			return true;
 		}
 		return false;
 	}
@@ -50,11 +53,11 @@ public class TestCommand implements DPCommand {
 	}
 	@Override
 	public String getCommandName() {
-		return "itemapi-test";
+		return "dpapi-item-test";
 	}
 	@Override
 	public void onDebug() {
-		main.log(getCommandName() + " is working fine");
+		main.log(getCommandName() + main.getString("command.test.debug"));
 	}
 
 }

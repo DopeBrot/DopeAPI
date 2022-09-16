@@ -1,0 +1,32 @@
+##
+##█░░ ▄▀█ █▄░█ █▀▀ █░█ ▄▀█ █▀▀ █▀▀
+##█▄▄ █▀█ █░▀█ █▄█ █▄█ █▀█ █▄█ ██▄
+##
+
+##
+## every text has a key and value
+## key = command_help_lack_permission
+## value = "you do not have permission to use this command!"
+##
+
+lang:
+  prefix: "§b[DopeAPI]"
+  main_language: "$prefix$ is using english as default language!"
+  ## commands:
+  command_permission: "$prefix$ §cYou don't have Permission to use this Command!"
+  ## help command
+  command_help_message: "$prefix$ §aThis plugin was made to simplify plugin Development."
+  command_help_debug: " command is working fine!"
+  ## test command
+  command_test_debug: " command is working fine!"
+  command_test_item_canadd: "$prefix$ §aFit Inventory check was successful! can add item to Inventory."
+  command_test_item_cantadd: "$prefix$ §aFit Inventory check failed can't add item to Inventory."
+  command_test_itemname_head: "§aD§be§cv§de§fl§1o§2p§3e§4r§5!"
+  command_test_itemname_bone: "Bone with hidden Knockback Enchantment with level 16!"
+  command_test_itemlore_line0: "This is line 1 in Red!"
+  command_test_itemlore_line1: "And this is line 2 in Blue!"
+  command_test_itemlore_line2: "Finally this is line 3 in Yellow!"
+  command_test_itemlore_addedline: "This is an added line to 3"
+  command_test_colormessage0: "this message is in gold and underlined!"
+  command_test_colormessage1: "this message is in red and italic!"
+

@@ -17,9 +17,11 @@ public class HelpCommand implements DPCommand {
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (sender instanceof Player player) {
-			if (player.hasPermission(main.permissionBase + ".help.command")) {
-				player.sendMessage("§c[ItemAPI]§r > This plugin was made to simplify development.");
+			if (!player.hasPermission(main.permissionBase + ".help.command")) {
+				player.sendMessage(main.getString("command.permission"));
+				return false;
 			}
+			player.sendMessage(main.getString("command.help.message"));
 		}
 		return false;
 	}
@@ -30,11 +32,11 @@ public class HelpCommand implements DPCommand {
 	}
 	@Override
 	public String getCommandName() {
-		return "DP-itemhelp";
+		return "dpapi-item-help";
 	}
 	@Override
 	public void onDebug() {
-		main.log(getCommandName() + " is working fine");
+		main.log(getCommandName() + main.getString("command.help.debug"));
 	}
 
 }
