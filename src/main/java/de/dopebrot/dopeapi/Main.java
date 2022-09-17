@@ -1,26 +1,18 @@
 package de.dopebrot.dopeapi;
 
-import de.dopebrot.dopeapi.command.Apfel;
 import de.dopebrot.dopeapi.command.HelpCommand;
 import de.dopebrot.dopeapi.command.TestCommand;
 import de.dopebrot.dopeapi.helper.DPCommand;
 import de.dopebrot.dopeapi.helper.LanguageHelper;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.reflect.FieldUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.FileUtil;
-import org.checkerframework.checker.units.qual.C;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.file.StandardCopyOption;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Objects;
 import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
