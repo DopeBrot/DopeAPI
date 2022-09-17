@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.dopebrot</groupId>
     <artifactId>DopeAPI</artifactId>
-    <version>3</version>
+    <version>4</version>
     <build>
         <resources>
             <resource>
