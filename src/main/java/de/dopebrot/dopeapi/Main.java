@@ -5,8 +5,6 @@ import de.dopebrot.dopeapi.helper.LanguageHelper;
 import de.dopebrot.dopeapi.structure.Structure;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
