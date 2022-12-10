@@ -12,7 +12,7 @@ public class LanguageManager {
 
 	private final File languageFolder;
 	private final ArrayList<Language> languages;
-	private final HashMap<String, Language> keyedMap;
+	private final HashMap<String, Language> languageIdentifier;
 	private boolean debug = false;
 	private String errorMessage;
 
@@ -20,7 +20,7 @@ public class LanguageManager {
 		this.languageFolder = folder;
 		this.errorMessage = "%key%:%message% was not found report this to an administrator";
 		this.languages = new ArrayList<>();
-		this.keyedMap = new HashMap<>();
+		this.languageIdentifier = new HashMap<>();
 		if (!languageFolder.isDirectory()) {
 			Bukkit.getLogger().log(Level.WARNING, "language folder is not a directory!");
 		}
@@ -67,7 +67,7 @@ public class LanguageManager {
 
 		if (!this.languages.isEmpty()) {
 			for (Language currentLanguage : languages) {
-				keyedMap.put(currentLanguage.key(), currentLanguage);
+				languageIdentifier.put(currentLanguage.key(), currentLanguage);
 			}
 		}
 	}
@@ -77,9 +77,9 @@ public class LanguageManager {
 	}
 
 	public String getString(String key, String message) {
-			if (keyedMap.containsKey(key)) {
-				if (keyedMap.get(key).has(message)) {
-					return keyedMap.get(key).message(message);
+			if (languageIdentifier.containsKey(key)) {
+				if (languageIdentifier.get(key).has(message)) {
+					return languageIdentifier.get(key).message(message);
 				}
 			}
 		return errorMessage.replace("%key%", key).replace("%message%", message);
