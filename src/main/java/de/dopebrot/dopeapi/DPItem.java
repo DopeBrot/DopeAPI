@@ -3,6 +3,7 @@ package de.dopebrot.dopeapi;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang.Validate;
 import org.bukkit.*;
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -21,10 +22,10 @@ import java.util.logging.Level;
 public class DPItem {
 
 	/**
-	 * @param playerName the name of the player wich the skull should be
+	 * @param playerName the name of the player which the skull should be
 	 * @return itemstack of skull
 	 */
-	public ItemStack getHead(String playerName) {
+	public static ItemStack getHead(String playerName) {
 		Validate.notNull(playerName, "playerName can't be null!");
 		ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
 		if (itemStack.getItemMeta() instanceof SkullMeta skullMeta) {
@@ -35,7 +36,7 @@ public class DPItem {
 					return false;
 				}
 				@Override
-				public @Nullable String getName() {
+				public @NotNull String getName() {
 					return playerName;
 				}
 				@Override
@@ -181,7 +182,7 @@ public class DPItem {
 	 * @param displayName name of the itemstack
 	 * @return changed itemstack
 	 */
-	public ItemStack setDisplayName(ItemStack itemStack, String displayName) {
+	public static ItemStack setDisplayName(ItemStack itemStack, String displayName) {
 		Validate.notNull(itemStack, "itemstack can't be null!");
 		Validate.notNull(displayName, "displayname can't be null!");
 		if (itemStack.getItemMeta() != null) {
@@ -195,10 +196,10 @@ public class DPItem {
 	}
 
 	/**
-	 * @param itemStack itemstack which displayname should be getted
+	 * @param itemStack itemstack which displayname should be got
 	 * @return Component displayname name
 	 */
-	public Component getDisplayName(ItemStack itemStack) {
+	public static Component getDisplayName(ItemStack itemStack) {
 		Validate.notNull(itemStack, "itemstack can't be null!");
 		if (itemStack.hasItemMeta()) {
 			if (itemStack.getItemMeta().displayName() != null) {
@@ -209,11 +210,11 @@ public class DPItem {
 	}
 
 	/**
-	 * @param inventory inventory wich the itemstack will be added
-	 * @param itemStack itemstack wich will be added to inventory
+	 * @param inventory inventory which the itemstack will be added
+	 * @param itemStack itemstack which will be added to inventory
 	 * @return true if the itemstack will fit in the inventory
 	 */
-	public boolean canAddItem(Inventory inventory, ItemStack itemStack) {
+	public static boolean canAddItem(Inventory inventory, ItemStack itemStack) {
 		Validate.notNull(inventory, "inventory can't be null!");
 		Validate.notNull(itemStack, "itemstack can't be null!");
 		if (inventory.isEmpty())
@@ -240,28 +241,24 @@ public class DPItem {
 				}
 			}
 		}
-		if (temp == 0) {
-			return true;
-		}
-
-		return false;
+		return temp == 0;
 	}
 
 	/**
-	 * @param itemStack itemstack which amount should be getted
+	 * @param itemStack itemstack which amount should get
 	 * @return itemstack amount
 	 */
-	public int getAmount(ItemStack itemStack) {
+	public static int getAmount(ItemStack itemStack) {
 		Validate.notNull(itemStack, "itemstack can't be null!");
 		return itemStack.getAmount();
 	}
 
 	/**
-	 * @param itemStack itemstack wich amount gets set
+	 * @param itemStack itemstack which amount gets set
 	 * @param amount    the amount the itemstack will have
 	 * @return changed itemstack
 	 */
-	public ItemStack setAmount(ItemStack itemStack, int amount) {
+	public static ItemStack setAmount(ItemStack itemStack, int amount) {
 		Validate.notNull(itemStack, "itemstack can't be null!");
 		Validate.isTrue(amount < 1, "amount must be positive");
 		itemStack.setAmount(amount);
@@ -269,11 +266,11 @@ public class DPItem {
 	}
 
 	/**
-	 * @param itemStack itemstack wich amount gets added
+	 * @param itemStack itemstack which amount gets added
 	 * @param amount    the amount the itemstack will add
 	 * @return changed itemstack
 	 */
-	public ItemStack addAmount(ItemStack itemStack, int amount) {
+	public static ItemStack addAmount(ItemStack itemStack, int amount) {
 		Validate.notNull(itemStack, "itemstack can't be null!");
 		Validate.isTrue(amount > 1, "amount must be positive");
 		if (amount + itemStack.getAmount() > 64) {
@@ -289,11 +286,11 @@ public class DPItem {
 	}
 
 	/**
-	 * @param itemStack itemstack wich amount gets removed
+	 * @param itemStack itemstack which amount gets removed
 	 * @param amount    the amount the itemstack will remove
 	 * @return changed itemstack
 	 */
-	public ItemStack removeAmount(ItemStack itemStack, int amount) {
+	public static ItemStack removeAmount(ItemStack itemStack, int amount) {
 		Validate.notNull(itemStack, "itemstack can't be null!");
 		Validate.isTrue(amount >= 1, "amount must be positive");
 		if (itemStack.getAmount() - amount > 64) {
@@ -310,10 +307,10 @@ public class DPItem {
 
 	/**
 	 * @param itemStack itemstack with lore change
-	 * @param lore      the lore which will be setted
+	 * @param lore      the lore which will be set
 	 * @return lore changed itemstack
 	 */
-	public ItemStack setLore(ItemStack itemStack, String[] lore) {
+	public static ItemStack setLore(ItemStack itemStack, String[] lore) {
 		Validate.notNull(itemStack, "itemStack can't be null!");
 		Validate.notNull(lore, "lore can't be null!");
 		Validate.noNullElements(lore, "lore can't have null!");
@@ -332,10 +329,10 @@ public class DPItem {
 	}
 
 	/**
-	 * @param itemStack itemstack which lore should be getted
+	 * @param itemStack itemstack which lore should get
 	 * @return Component list of itemStack lore
 	 */
-	public List<Component> getLore(ItemStack itemStack) {
+	public static List<Component> getLore(ItemStack itemStack) {
 		Validate.notNull(itemStack, "itemstack can't be null!");
 		if (itemStack.hasItemMeta()) {
 			ItemMeta itemMeta = itemStack.getItemMeta();
@@ -352,7 +349,7 @@ public class DPItem {
 	 * @param position  position where the lore will be added
 	 * @return lore changed itemstack
 	 */
-	public ItemStack addLore(ItemStack itemStack, String[] lore, int position) {
+	public static ItemStack addLore(ItemStack itemStack, String[] lore, int position) {
 		Validate.notNull(itemStack, "itemStack can't be null!");
 		Validate.notNull(lore, "lore can't be null!");
 		Validate.noNullElements(lore, "lore can't have null!");
@@ -382,7 +379,7 @@ public class DPItem {
 	 * @param position  position where the lore will be added
 	 * @return lore changed itemstack
 	 */
-	public ItemStack removeLore(ItemStack itemStack, int position) {
+	public static ItemStack removeLore(ItemStack itemStack, int position) {
 		Validate.notNull(itemStack, "itemStack can't be null!");
 		if (itemStack.getItemMeta() != null) {
 			ItemMeta itemMeta = itemStack.getItemMeta();
@@ -405,7 +402,7 @@ public class DPItem {
 	 * @param flag      itemflag which will be setted
 	 * @return itemstack with setted flag/s
 	 */
-	public ItemStack setFlag(ItemStack itemStack, ItemFlag[] flag) {
+	public static ItemStack setFlag(ItemStack itemStack, ItemFlag[] flag) {
 		Validate.notNull(itemStack, "itemStack can't be null!");
 		Validate.notNull(flag, "flag can't be null!");
 		Validate.noNullElements(flag, "flags can't be null!");
@@ -429,7 +426,7 @@ public class DPItem {
 	 * @param flag      itemflag which will be added
 	 * @return itemstack with added flag/s
 	 */
-	public ItemStack addFlag(ItemStack itemStack, ItemFlag[] flag) {
+	public static ItemStack addFlag(ItemStack itemStack, ItemFlag[] flag) {
 		Validate.notNull(itemStack, "itemStack can't be null!");
 		Validate.notNull(flag, "flag can't be null!");
 		Validate.noNullElements(flag, "flags can't be null!");
@@ -452,7 +449,7 @@ public class DPItem {
 	 * @param flag      itemflag/s which will be removed
 	 * @return itemstack with added flag/s
 	 */
-	public ItemStack removeFlag(ItemStack itemStack, ItemFlag[] flag) {
+	public static ItemStack removeFlag(ItemStack itemStack, ItemFlag[] flag) {
 		Validate.notNull(itemStack, "itemStack can't be null!");
 		Validate.notNull(flag, "flag can't be null!");
 		Validate.noNullElements(flag, "flags can't be null!");
@@ -471,10 +468,10 @@ public class DPItem {
 	}
 
 	/**
-	 * @param itemStack itemstack which flags should be getted
+	 * @param itemStack itemstack which flags should get
 	 * @return ItemFlags flags from itemstack or null if itemstack has no flags
 	 */
-	public Set<ItemFlag> getFlags(ItemStack itemStack) {
+	public static Set<ItemFlag> getFlags(ItemStack itemStack) {
 		Validate.notNull(itemStack, "itemstack can't be null!");
 		if (itemStack.hasItemMeta()) {
 			ItemMeta itemMeta = itemStack.getItemMeta();
@@ -491,7 +488,7 @@ public class DPItem {
 	 * @param level       enchantment/s level
 	 * @return itemstack with added enchantment/s
 	 */
-	public ItemStack addEnchantment(ItemStack itemStack, Enchantment[] enchantment, int[] level) {
+	public static ItemStack addEnchantment(ItemStack itemStack, Enchantment[] enchantment, int[] level) {
 		Validate.notNull(itemStack, "itemStack can't be null!");
 		Validate.notNull(enchantment, "enchantment can't be null!");
 		Validate.noNullElements(enchantment, "enchantments can't contain null!");
@@ -516,7 +513,7 @@ public class DPItem {
 	 * @param level       enchantment/s level
 	 * @return itemstack with setted enchantment/s
 	 */
-	public ItemStack setEnchantment(ItemStack itemStack, Enchantment[] enchantment, int[] level) {
+	public static ItemStack setEnchantment(ItemStack itemStack, Enchantment[] enchantment, int[] level) {
 		Validate.notNull(itemStack, "itemStack can't be null!");
 		Validate.notNull(enchantment, "enchantment can't be null!");
 		Validate.noNullElements(enchantment, "enchantments can't contain null!");
@@ -543,15 +540,15 @@ public class DPItem {
 	 * @param enchantment enchantment/s which will be removed
 	 * @return itemstack with removed enchantment/s
 	 */
-	public ItemStack removeEnchantment(ItemStack itemStack, Enchantment[] enchantment) {
+	public static ItemStack removeEnchantment(ItemStack itemStack, Enchantment[] enchantment) {
 		Validate.notNull(itemStack, "itemStack can't be null!");
 		Validate.notNull(enchantment, "enchantment can't be null!");
 		Validate.noNullElements(enchantment, "enchantments can't contain null!");
 		if (itemStack.getItemMeta() != null) {
 			ItemMeta itemMeta = itemStack.getItemMeta();
 			if (!itemMeta.getEnchants().isEmpty()) {
-				for (Enchantment ench : enchantment) {
-					itemMeta.getEnchants().remove(ench);
+				for (Enchantment e : enchantment) {
+					itemMeta.getEnchants().remove(e);
 				}
 			}
 			itemStack.setItemMeta(itemMeta);
@@ -565,7 +562,7 @@ public class DPItem {
 	 * @param itemStack itemstack with lore change
 	 * @return enchantments from itemstack
 	 */
-	public Set<Enchantment> getEnchantments(ItemStack itemStack) {
+	public static Set<Enchantment> getEnchantments(ItemStack itemStack) {
 		Validate.notNull(itemStack, "itemStack can't be null!");
 		if (itemStack.getItemMeta() != null) {
 			ItemMeta itemMeta = itemStack.getItemMeta();
@@ -576,5 +573,22 @@ public class DPItem {
 		Bukkit.getLogger().log(Level.WARNING, "itemStack has no itemMeta");
 		return null;
 	}
+
+	/**
+	 * @param itemstack Bukkit Itemstack
+	 * @return nms copy of Bukkit Itemstack
+	 */
+	public static net.minecraft.world.item.ItemStack getNMS(ItemStack itemstack) {
+		return CraftItemStack.asNMSCopy(itemstack);
+	}
+
+	/**
+	 * @param itemstack NMS Itemstack
+	 * @return Bukkit copy of NMS Itemstack
+	 */
+	public static ItemStack getBukkit(net.minecraft.world.item.ItemStack itemstack) {
+		return CraftItemStack.asBukkitCopy(itemstack);
+	}
+
 
 }
