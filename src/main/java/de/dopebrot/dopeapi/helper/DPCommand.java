@@ -1,21 +1,5 @@
 package de.dopebrot.dopeapi.helper;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.command.TabCompleter;
 
-public interface DPCommand extends CommandExecutor {
-
-	/**
-		which permission the command has.
-	 */
-	public String[] getPermissions();
-	/**
-	    command name.
-	 */
-	public String getCommandName();
-	/**
-		check if command is working.
-	 */
-	public void onDebug();
-}
+public interface DPCommand extends CommandExecutor, TabCompleter {}
