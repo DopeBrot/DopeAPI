@@ -1,11 +1,12 @@
 package de.dopebrot.dopeapi;
 
-import de.dopebrot.dopeapi.command.HelpCommand;
-import de.dopebrot.dopeapi.command.TestCommand;
 import de.dopebrot.dopeapi.helper.DPCommand;
 import de.dopebrot.dopeapi.helper.LanguageHelper;
+import de.dopebrot.dopeapi.structure.Structure;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,13 +18,12 @@ import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
 
-	private HelpCommand helpCommand;
-	private TestCommand testCommand;
 	private LanguageHelper language;
 	private boolean debug;
 	private String prefix = "§a[DopeAPI]";
 	public final String permissionBase = "dpapi.";
 	public ArrayList<DPCommand> commands;
+	private Structure structure;
 
 	public void log(String s) {
 		this.getLogger().log(Level.INFO, s);
@@ -41,7 +41,7 @@ public class Main extends JavaPlugin {
 		InputStream inputStream = this.getResource(fileName);
 		try {
 			assert inputStream != null;
-			FileUtils.copyInputStreamToFile(inputStream,file);
+			FileUtils.copyInputStreamToFile(inputStream, file);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -79,6 +79,7 @@ public class Main extends JavaPlugin {
 		}
 	}
 
+
 	private void loadLanguage() {
 		language = new LanguageHelper("language", "plugins/DopeAPI", "lang");
 		language.load();
@@ -97,28 +98,6 @@ public class Main extends JavaPlugin {
 	 * registers commands
 	 */
 	private void registerCommands() {
-		commands = new ArrayList<>();
-		commands.add(new HelpCommand(this));
-		commands.add(new TestCommand(this));
-
-		for (DPCommand c : commands) {
-			if (c == null) {
-				continue;
-			}
-
-			this.getCommand(c.getCommandName());
-			this.getCommand(c.getCommandName()).setExecutor(c);
-
-			if (debug) {
-				log("register command [" + c.getCommandName() + "]");
-				for (String p : c.getPermissions()) {
-					log("  perm > " + p.replaceAll("..", "."));
-				}
-
-			}
-
-		}
-
 	}
 
 	public void onDisable() {
