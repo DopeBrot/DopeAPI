@@ -1,7 +1,7 @@
 package de.dopebrot.dopeapi;
 
 import de.dopebrot.dopeapi.helper.DPCommand;
-import de.dopebrot.dopeapi.helper.LanguageHelper;
+import de.dopebrot.dopeapi.helper.LanguageManager;
 import de.dopebrot.dopeapi.structure.Structure;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
@@ -16,11 +16,12 @@ import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
 
-	private LanguageHelper language;
+	private LanguageManager languageManager;
 	private boolean debug;
 	private String prefix = "§a[DopeAPI]";
 	public final String permissionBase = "dpapi.";
 	public ArrayList<DPCommand> commands;
+	private final String version = "6.0.0";
 	private Structure structure;
 
 	public void log(String s) {
@@ -77,19 +78,21 @@ public class Main extends JavaPlugin {
 		}
 	}
 
-
+	/**
+	 * loads languages
+	 */
 	private void loadLanguage() {
-		language = new LanguageHelper("language", "plugins/DopeAPI", "lang");
-		language.load();
-		Bukkit.getLogger().log(Level.INFO, getString("main.language"));
-		prefix = getString("prefix");
+		this.languageManager = new LanguageManager(new File("plugins/DopeAPI/lang"));
+		languageManager.setDebug(true);
+		languageManager.load();
+		log(getString("eng", "plugin_loading").replace("%0%", version));
 	}
 	/**
 	 * @param key key of text e.g. (command.help.lack.permission)
 	 * @return text or null of the key cant be found!
 	 */
-	public String getString(String key) {
-		return language.getString(key);
+	public String getString(String key, String message) {
+		return languageManager.getString(key, message);
 	}
 
 	/**
@@ -99,7 +102,7 @@ public class Main extends JavaPlugin {
 	}
 
 	public void onDisable() {
-
+		log(getString("eng", "plugin_unloading").replace("%0%", version));
 	}
 
 }
