@@ -1,9 +1,6 @@
 package de.dopebrot.dopeapi.region;
-import de.dopebrot.dopeapi.annotation.ArrayLength;
 import org.bukkit.Location;
-import org.bukkit.Warning;
 import org.bukkit.World;
-import org.checkerframework.common.value.qual.ArrayLenRange;
 
 import java.util.UUID;
 
@@ -58,7 +55,6 @@ public class Region {
 		return this.end;
 	}
 
-	@ArrayLength(length = 4)
 	public double[] size() {
 		double x = end.getX() - start.getX();
 		double y = end.getY() - start.getY();

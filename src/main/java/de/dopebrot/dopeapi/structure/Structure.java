@@ -21,7 +21,10 @@ public class Structure {
 		this.config = new YamlConfiguration();
 	}
 
-	// saves structure from in-game
+
+	/**
+	 * saves structure in memory
+	 */
 	public void save(Location location, int[] size) {
 		if (size.length != 3) {
 			return;
@@ -44,7 +47,10 @@ public class Structure {
 		config.set("b", "" + stringBuilder + "");
 	}
 
-	// exports config
+
+	/**
+	 * exports config
+	 */
 	public void exportConfig(File file) {
 		try {
 			config.save(file);
@@ -53,7 +59,9 @@ public class Structure {
 
 	}
 
-	// loads config
+	/**
+	 * loads config
+	 */
 	public void importConfig(File file) {
 		this.config = new YamlConfiguration();
 		this.structureLoaded = true;
@@ -77,7 +85,10 @@ public class Structure {
 		}
 	}
 
-	// spawns structure on location if it was loaded
+
+	/**
+	 * spawns structure if it was loaded
+	 */
 	public void spawn(Location location) {
 		if (!structureLoaded) {
 			return;
@@ -91,7 +102,9 @@ public class Structure {
 		}
 	}
 
-	// unload to save memory
+	/**
+	 * unloads structure from memory to save it.
+	 */
 	public void unload() {
 		this.list = null;
 	}
