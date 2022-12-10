@@ -1,4 +1,4 @@
-package de.dopebrot.dopeapi.helper;
+package de.dopebrot.dopeapi.language;
 
 import de.dopebrot.dopeapi.config.DPConfig;
 import org.bukkit.Bukkit;

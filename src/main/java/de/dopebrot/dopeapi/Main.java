@@ -1,7 +1,7 @@
 package de.dopebrot.dopeapi;
 
 import de.dopebrot.dopeapi.helper.DPCommand;
-import de.dopebrot.dopeapi.helper.LanguageManager;
+import de.dopebrot.dopeapi.language.LanguageManager;
 import de.dopebrot.dopeapi.structure.Structure;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;

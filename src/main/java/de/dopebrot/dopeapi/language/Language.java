@@ -1,4 +1,4 @@
-package de.dopebrot.dopeapi.helper;
+package de.dopebrot.dopeapi.language;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import de.dopebrot.dopeapi.config.DPConfig;
