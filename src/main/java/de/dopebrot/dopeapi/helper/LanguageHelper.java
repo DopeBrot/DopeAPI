@@ -1,14 +1,12 @@
 package de.dopebrot.dopeapi.helper;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 
 public class LanguageHelper {
@@ -46,6 +44,7 @@ public class LanguageHelper {
 	public void setErrorString(String s) {
 		errorString = s;
 	}
+
 	public void usingPrefix(boolean b) {
 		usingPrefix = b;
 	}
@@ -67,17 +66,32 @@ public class LanguageHelper {
 	 * on the first load {@code isLoaded} is set to true
 	 */
 	public void load() {
+		if (isLoaded) {
+			text.clear();
+			try {
+				this.yamlConfiguration.load(file);
+			} catch (IOException | InvalidConfigurationException e) {
+				if (debug) {
+					Bukkit.getLogger().log(Level.WARNING,"language could not be reloaded:");
+					Bukkit.getLogger().log(Level.WARNING,e.getMessage());
+				}
+			}
+		}
 		if (!this.isLoaded) {
 			this.isLoaded = true;
 		}
-		List<String> list = yamlConfiguration.getConfigurationSection(prefix).getValues(false).keySet().stream().toList();
-		for (String s : list) {
-			String value = yamlConfiguration.getString(prefix + "." + s);
-			assert value != null;
-			text.put(s, value);
-		}
-		if (debug) {
-			Bukkit.getLogger().log(Level.INFO, "Language [" + name + "] (" + prefix + ") was loaded");
+
+		if (yamlConfiguration.getConfigurationSection(prefix) != null) {
+			Objects.requireNonNull(yamlConfiguration.getConfigurationSection(prefix)).getValues(false);
+			List<String> list = yamlConfiguration.getConfigurationSection(prefix).getValues(false).keySet().stream().toList();
+			for (String s : list) {
+				String value = yamlConfiguration.getString(prefix + "." + s);
+				assert value != null;
+				text.put(s, value);
+			}
+			if (debug) {
+				Bukkit.getLogger().log(Level.INFO, "Language [" + name + "] (" + prefix + ") was loaded");
+			}
 		}
 
 	}
