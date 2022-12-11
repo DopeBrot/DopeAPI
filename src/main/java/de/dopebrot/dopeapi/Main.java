@@ -18,10 +18,10 @@ public class Main extends JavaPlugin {
 
 	private LanguageManager languageManager;
 	private boolean debug;
-	private String prefix = "§a[DopeAPI]";
+	private final String prefix = "§a[DopeAPI]";
 	public final String permissionBase = "dpapi.";
 	public ArrayList<DPCommand> commands;
-	private final String version = "6.0.0";
+	private final String version = "8.0.0";
 	private Structure structure;
 
 	public void log(String s) {
