@@ -13,14 +13,28 @@ public class RegionManager {
 		this.regions = new ArrayList<>();
 	}
 
+	/**
+	 * adds a region
+	 * @param region the region that needs to be added
+	 */
 	public void addRegion(Region region) {
 		this.regions.add(region);
 	}
 
+	/**
+	 * removes a given region
+	 *
+	 * @param region the region that needs to be removed
+	 */
 	public void removeRegion(Region region) {
 		this.regions.remove(region);
 	}
 
+	/**
+	 * removes a region accordingly to their uuid
+	 *
+	 * @param uuid the uuid of the region that needs to be removed
+	 */
 	public void removeRegion(UUID uuid) {
 		for (Region currentRegion : regions) {
 			if (currentRegion.getRegionUUID() == uuid) {
@@ -30,6 +44,11 @@ public class RegionManager {
 		}
 	}
 
+	/**
+	 * removes a region accordingly to their name
+	 *
+	 * @param regionName the name of the region that needs to be removed
+	 */
 	public void removeRegion(String regionName) {
 		for (Region currentRegion : regions) {
 			if (currentRegion.getRegionName().equals(regionName)) {
@@ -39,6 +58,10 @@ public class RegionManager {
 		}
 	}
 
+	/**
+	 * @param location location that needs to be checked
+	 * @return true if location is inside any region
+	 */
 	public boolean isInside(Location location) {
 		for (Region currentRegion : regions) {
 			if (currentRegion.getStart().getX() > location.getX()
@@ -54,6 +77,10 @@ public class RegionManager {
 		return false;
 	}
 
+	/**
+	 * @param location location of the region that need to be found
+	 * @return region where the location is inside
+	 */
 	@Nullable
 	public Region getRegion(Location location) {
 		for (Region currentRegion : regions) {
@@ -70,6 +97,9 @@ public class RegionManager {
 		return null;
 	}
 
+	/**
+	 * return ArrayList of all region there are
+	 */
 	public ArrayList<Region> getRegions() {
 		return regions;
 	}

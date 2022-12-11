@@ -21,9 +21,11 @@ public class Structure {
 		this.config = new YamlConfiguration();
 	}
 
-
 	/**
 	 * saves structure in memory
+	 *
+	 * @param location the location of start from the structure
+	 * @param size     the array size must be 3 and represent size x,y,z
 	 */
 	public void save(Location location, int[] size) {
 		if (size.length != 3) {
@@ -47,9 +49,10 @@ public class Structure {
 		config.set("b", "" + stringBuilder + "");
 	}
 
-
 	/**
-	 * exports config
+	 * exports config to a file
+	 *
+	 * @param file the file that is written to
 	 */
 	public void exportConfig(File file) {
 		try {
@@ -60,7 +63,9 @@ public class Structure {
 	}
 
 	/**
-	 * loads config
+	 * loads a file in to memory
+	 *
+	 * @param file that is being loaded
 	 */
 	public void importConfig(File file) {
 		this.config = new YamlConfiguration();
@@ -85,9 +90,10 @@ public class Structure {
 		}
 	}
 
-
 	/**
 	 * spawns structure if it was loaded
+	 *
+	 * @param location the location where the structure is being build
 	 */
 	public void spawn(Location location) {
 		if (!structureLoaded) {
@@ -103,24 +109,38 @@ public class Structure {
 	}
 
 	/**
-	 * unloads structure from memory to save it.
+	 * unloads structure from memory to save memory
 	 */
 	public void unload() {
 		this.list = null;
+		this.structureLoaded = false;
 	}
 
+	/**
+	 * list of all structure blocks
+	 *
+	 * @return list of structure blocks
+	 */
 	@Nullable
 	public StructureBlock[] getList() {
-		return list;
+		return this.list;
 	}
 
+	/**
+	 * configuration
+	 *
+	 * @return a yaml configuration
+	 */
 	@Nullable
 	public YamlConfiguration getConfig() {
-		return config;
+		return this.config;
 	}
 
+	/**
+	 * @return true if the structure is loaded in memory
+	 */
 	public boolean isStructureLoaded() {
-		return structureLoaded;
+		return this.structureLoaded;
 	}
 
 }
