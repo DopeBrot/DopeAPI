@@ -589,6 +589,4 @@ public class DPItem {
 	public static ItemStack getBukkit(net.minecraft.world.item.ItemStack itemstack) {
 		return CraftItemStack.asBukkitCopy(itemstack);
 	}
-
-
 }
