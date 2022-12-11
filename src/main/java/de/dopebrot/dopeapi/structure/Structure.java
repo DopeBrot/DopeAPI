@@ -1,4 +1,5 @@
 package de.dopebrot.dopeapi.structure;
+import de.dopebrot.dopeapi.region.Region;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -24,17 +25,13 @@ public class Structure {
 	/**
 	 * saves structure in memory
 	 *
-	 * @param location the location of start from the structure
-	 * @param size     the array size must be 3 and represent size x,y,z
+	 * @param region the region of the Structure
 	 */
-	public void save(Location location, int[] size) {
-		if (size.length != 3) {
-			return;
-		}
+	public void save(Region region) {
 		StringBuilder stringBuilder = new StringBuilder();
-		for (int x = 0; x < size[0]; x++) {
-			for (int y = 0; y < size[1]; y++) {
-				for (int z = 0; z < size[2]; z++) {
+		for (int x = 0; x < region.size()[0]; x++) {
+			for (int y = 0; y < region.size()[1]; y++) {
+				for (int z = 0; z < region.size()[2]; z++) {
 					stringBuilder.append("#");
 					stringBuilder.append(x);
 					stringBuilder.append(":");
@@ -42,7 +39,7 @@ public class Structure {
 					stringBuilder.append(":");
 					stringBuilder.append(z);
 					stringBuilder.append(":");
-					stringBuilder.append(location.getWorld().getBlockAt(location.getBlockX() + x, location.getBlockY() + y, location.getBlockZ() + z).getBlockData().getAsString());
+					stringBuilder.append(region.getStart().getWorld().getBlockAt(region.getStart().getBlockX() + x, region.getStart().getBlockY() + y, region.getStart().getBlockZ() + z).getBlockData().getAsString());
 				}
 			}
 		}
