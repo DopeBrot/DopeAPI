@@ -2,6 +2,8 @@ package de.dopebrot.dopeapi.language;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import de.dopebrot.dopeapi.config.DPConfig;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.HashMap;
@@ -13,6 +15,13 @@ public class Language {
 	private final HashMap<String, String> messages;
 	private String key;
 	private String name;
+
+	/**
+	 * creates a new language
+	 *
+	 * @param file   which file is this language
+	 * @param config which config is controlled over it
+	 */
 	public Language(File file, DPConfig config) {
 		this.file = file;
 		this.config = config;
@@ -27,22 +36,41 @@ public class Language {
 		}
 	}
 
+	/**
+	 * file where everything is stored
+	 */
+	@NotNull
 	public File file() {
 		return file;
 	}
 
+	/**
+	 * configuration in json
+	 */
+	@NotNull
 	public DPConfig config() {
 		return config;
 	}
 
+	/**
+	 * key that need be called (en)
+	 */
+	@NotNull
 	public String key() {
 		return this.key;
 	}
 
+	/**
+	 * name of the language (english)
+	 */
+	@NotNull
 	public String name() {
 		return name;
 	}
 
+	/**
+	 * loads whole file in memory
+	 */
 	public void load() {
 		JsonObject languageConfig = config.getJsonObject().getAsJsonObject("language");
 
@@ -74,15 +102,16 @@ public class Language {
 			}
 		}
 	}
-
 	public boolean has(String message) {
 		return messages.containsKey(message);
 	}
 
+	@Nullable
 	public String message(String key) {
 		return messages.get(key);
 	}
 
+	@NotNull
 	public HashMap<String, String> getMessages() {
 		return messages;
 	}
