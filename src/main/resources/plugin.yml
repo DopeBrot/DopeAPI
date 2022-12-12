@@ -2,15 +2,6 @@ main: de.dopebrot.dopeapi.Main
 name: "DopeAPI"
 version: @project.version@
 authors:  ["DopeBrot","Hptlo"]
-description: "A plugin for development purposes to make plugins simpler."
+description: "A plugin for development purposes development simpler"
 api-version: "1.18"
 prefix: "DP-API"
-commands:
-  dpapi-item-help:
-    description: "Gives detail what the item functions can do."
-    permission: "dp.dpapi.item.help.command"
-    usage: "help"
-  dpapi-item-test:
-    description: "devs only Test's if the item functions are running correctly."
-    permission: "dp.dpapi.item.dev.test"
-    usage: "test"
