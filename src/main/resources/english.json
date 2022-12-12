@@ -1,0 +1,10 @@
+{
+  "language": {
+    "key": "en",
+    "name": "english",
+    "messages": [
+      { "key": "plugin.loading", "message": "DopeAPI v%0% is now loading" },
+      { "key": "plugin.unloading", "message": "DopeAPI v%0% is unloading" }
+    ]
+  }
+}
