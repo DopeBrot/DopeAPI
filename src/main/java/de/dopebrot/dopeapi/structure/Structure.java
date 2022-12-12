@@ -2,7 +2,6 @@ package de.dopebrot.dopeapi.structure;
 import de.dopebrot.dopeapi.region.Region;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -23,11 +22,11 @@ public class Structure {
 	}
 
 	/**
-	 * saves structure in memory
+	 * loads a structure in memory
 	 *
 	 * @param region the region of the Structure
 	 */
-	public void save(Region region) {
+	public void load(Region region) {
 		StringBuilder stringBuilder = new StringBuilder();
 		for (int x = 0; x < region.size()[0]; x++) {
 			for (int y = 0; y < region.size()[1]; y++) {
