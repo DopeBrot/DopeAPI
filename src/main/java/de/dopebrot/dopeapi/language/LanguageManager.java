@@ -144,5 +144,13 @@ public class LanguageManager {
 		Validate.notEmpty(key);
 		return languageIdentifier.containsKey(key);
 	}
+	
+	public ArrayList<Language> getLanguages() {
+		return languages;
+	}
+
+	public HashMap<String, Language> getLanguageIdentifier() {
+		return languageIdentifier;
+	}
 
 }
