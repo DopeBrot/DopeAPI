@@ -4,8 +4,6 @@ import de.dopebrot.dopeapi.helper.DPCommand;
 import de.dopebrot.dopeapi.language.LanguageManager;
 import de.dopebrot.dopeapi.structure.Structure;
 import org.apache.commons.io.FileUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -32,7 +30,6 @@ public class Main extends JavaPlugin {
 		this.debug = false;
 		registerCommands();
 		loadDefaultConfigs();
-		loadConfig();
 		loadLanguage();
 	}
 
@@ -50,31 +47,8 @@ public class Main extends JavaPlugin {
 	 * copy's default configs and adds it to folders if they not exist
 	 */
 	private void loadDefaultConfigs() {
-		if (new File("plugins/DopeAPI/").mkdirs()) {
-			if (debug) {
-				Bukkit.getLogger().log(Level.CONFIG, "dirs where created!");
-			}
-		}
-		if (!new File("plugins/DopeAPI/config.yml").exists()) {
-			if (debug)
-				Bukkit.getLogger().log(Level.CONFIG, "loading config from jar : config");
-			getResourceFile("config.yml", new File("plugins/DopeAPI/config.yml"));
-		}
-		if (!new File("plugins/DopeAPI/language.yml").exists()) {
-			if (debug)
-				Bukkit.getLogger().log(Level.CONFIG, "loading config from jar : config");
-			getResourceFile("language.yml", new File("plugins/DopeAPI/language.yml"));
-		}
-	}
-
-	/**
-	 * load default configs
-	 */
-	private void loadConfig() {
-		File f = new File("plugins/DopeAPI/config.yml");
-		YamlConfiguration config = YamlConfiguration.loadConfiguration(f);
-		if (config.contains("debug")) {
-			this.debug = config.getBoolean("debug", false);
+		if (!new File("plugins/DopeAPI/lang/english.json").exists()) {
+			getResourceFile("english.json", new File("plugins/DopeAPI/lang/english.json"));
 		}
 	}
 
@@ -85,7 +59,7 @@ public class Main extends JavaPlugin {
 		this.languageManager = new LanguageManager(new File("plugins/DopeAPI/lang"));
 		languageManager.setDebug(true);
 		languageManager.load();
-		log(getString("eng", "plugin_loading").replace("%0%", version));
+		log(getString("en", "plugin.loading").replace("%0%", version));
 	}
 	/**
 	 * @param key key of text e.g. (command.help.lack.permission)
@@ -102,7 +76,7 @@ public class Main extends JavaPlugin {
 	}
 
 	public void onDisable() {
-		log(getString("eng", "plugin_unloading").replace("%0%", version));
+		log(getString("en", "plugin.unloading").replace("%0%", version));
 	}
 
 }
