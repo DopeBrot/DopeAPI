@@ -2,6 +2,6 @@ main: de.dopebrot.dopeapi.Main
 name: "DopeAPI"
 version: @project.version@
 authors:  ["DopeBrot","Hptlo"]
-description: "A plugin for development purposes development simpler"
+description: "A plugin to develop simpler"
 api-version: "1.18"
 prefix: "DP-API"
