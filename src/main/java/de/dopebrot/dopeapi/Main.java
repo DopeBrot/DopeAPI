@@ -1,21 +1,18 @@
 package de.dopebrot.dopeapi;
 
 import de.dopebrot.dopeapi.helper.DPCommand;
+import de.dopebrot.dopeapi.helper.DPJava;
 import de.dopebrot.dopeapi.language.LanguageManager;
 import de.dopebrot.dopeapi.structure.Structure;
-import org.apache.commons.io.FileUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class Main extends JavaPlugin {
+public class Main extends JavaPlugin implements DPMain {
 
 	private LanguageManager languageManager;
-	private boolean debug;
 	private final String prefix = "§a[DopeAPI]";
 	public final String permissionBase = "dpapi.";
 	public ArrayList<DPCommand> commands;
@@ -27,20 +24,9 @@ public class Main extends JavaPlugin {
 	}
 
 	public void onEnable() {
-		this.debug = false;
 		registerCommands();
 		loadDefaultConfigs();
 		loadLanguage();
-	}
-
-	private void getResourceFile(String fileName, File file) {
-		InputStream inputStream = this.getResource(fileName);
-		try {
-			assert inputStream != null;
-			FileUtils.copyInputStreamToFile(inputStream, file);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	/**
@@ -48,7 +34,7 @@ public class Main extends JavaPlugin {
 	 */
 	private void loadDefaultConfigs() {
 		if (!new File("plugins/DopeAPI/lang/english.json").exists()) {
-			getResourceFile("english.json", new File("plugins/DopeAPI/lang/english.json"));
+			DPJava.getResourceFile(this, "english.json", new File("plugins/DopeAPI/lang/english.json"));
 		}
 	}
 
