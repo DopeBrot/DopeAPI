@@ -25,8 +25,8 @@ public class Language {
 	public Language(File file, DPConfig config) {
 		this.file = file;
 		this.config = config;
-		this.key = config.getJsonObject().getAsJsonObject("language").getAsJsonPrimitive("key").getAsString();
-		this.name = config.getJsonObject().getAsJsonObject("language").getAsJsonPrimitive("name").getAsString();
+		this.key = config.jsonObject().getAsJsonObject("language").getAsJsonPrimitive("key").getAsString();
+		this.name = config.jsonObject().getAsJsonObject("language").getAsJsonPrimitive("name").getAsString();
 		this.messages = new HashMap<>();
 		if (key.isEmpty()) {
 			key = "null";
@@ -72,7 +72,7 @@ public class Language {
 	 * loads whole file in memory
 	 */
 	public void load() {
-		JsonObject languageConfig = config.getJsonObject().getAsJsonObject("language");
+		JsonObject languageConfig = config.jsonObject().getAsJsonObject("language");
 
 		if (languageConfig.has("key")) {
 			if (languageConfig.get("key").isJsonPrimitive()) {
