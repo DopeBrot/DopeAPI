@@ -80,7 +80,7 @@ public class LanguageManager {
 								log("loading: " + currentFile.getName());
 							}
 							DPConfig tmpConfig = new DPConfig(currentFile, true);
-							if (tmpConfig.getJsonObject().has("language")) {
+							if (tmpConfig.jsonObject().has("language")) {
 								if (debug) {
 									log("adding " + currentFile.getName() + " to list.");
 								}
