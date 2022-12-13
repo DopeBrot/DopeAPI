@@ -24,11 +24,10 @@ public class Region {
 		double sy = start.getY();
 		double sz = start.getZ();
 		double ex = end.getX();
-		double ey = end.getX();
-		double ez = end.getX();
+		double ey = end.getY();
+		double ez = end.getZ();
 		double tmp = 0;
 
-		// switches from low to high
 		if (sx > ex) {
 			tmp = sx;
 			sx = ex;
@@ -44,6 +43,7 @@ public class Region {
 			sz = ez;
 			ez = tmp;
 		}
+
 		this.start = new Location(world, sx, sy, sz);
 		this.end = new Location(world, ex, ey, ez);
 	}
@@ -78,7 +78,7 @@ public class Region {
 		double x = end.getX() - start.getX();
 		double y = end.getY() - start.getY();
 		double z = end.getZ() - start.getZ();
-		double a = x * y * z;
+		double a = ((x * y) * z);
 		return new double[]{a, x, y, z};
 	}
 
@@ -94,6 +94,11 @@ public class Region {
 	 */
 	public String getRegionName() {
 		return regionName;
+	}
+
+	@Override
+	public String toString() {
+		return "Region{start=[" + start + "], end=[" + end + "], regionUUID=[" + regionUUID + "], regionName=['" + regionName + "\']}";
 	}
 
 }
