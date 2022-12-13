@@ -1,24 +1,40 @@
 package de.dopebrot.dopeapi.structure;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import de.dopebrot.dopeapi.config.DPConfig;
 import de.dopebrot.dopeapi.region.Region;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.IOException;
 
 public class Structure {
 
 	private StructureBlock[] list;
-	private YamlConfiguration config;
+	private DPConfig config;
 	private boolean structureLoaded;
+	private int sizeX = 0;
+	private int sizeY = 0;
+	private int sizeZ = 0;
+
+	/**
+	 * this is a beta version
+	 * it will work but lacks some features.
+	 * */
 
 	public Structure() {
+		this.config = new DPConfig();
 		this.structureLoaded = false;
-		this.config = new YamlConfiguration();
+	}
+
+	public void testDebug() {
+		if (structureLoaded) {
+
+		}
+
 	}
 
 	/**
@@ -27,22 +43,23 @@ public class Structure {
 	 * @param region the region of the Structure
 	 */
 	public void load(Region region) {
-		StringBuilder stringBuilder = new StringBuilder();
-		for (int x = 0; x < region.size()[0]; x++) {
-			for (int y = 0; y < region.size()[1]; y++) {
-				for (int z = 0; z < region.size()[2]; z++) {
-					stringBuilder.append("#");
-					stringBuilder.append(x);
-					stringBuilder.append(":");
-					stringBuilder.append(y);
-					stringBuilder.append(":");
-					stringBuilder.append(z);
-					stringBuilder.append(":");
-					stringBuilder.append(region.getStart().getWorld().getBlockAt(region.getStart().getBlockX() + x, region.getStart().getBlockY() + y, region.getStart().getBlockZ() + z).getBlockData().getAsString());
+		System.out.println(region);
+
+		int counter = 0;
+		list = new StructureBlock[((int) region.size()[0])];
+		for (int x = 0; x < region.size()[1]; x++) {
+			for (int y = 0; y < region.size()[2]; y++) {
+				for (int z = 0; z < region.size()[3]; z++) {
+					String data = region.getStart().getWorld().getBlockAt(region.getStart()).getLocation().add(x, y, z).getBlock().getBlockData().getAsString();
+					if (counter >= list.length) {
+						break;
+					}
+					list[counter] = new StructureBlock(x, y, z, data);
+					counter++;
 				}
 			}
 		}
-		config.set("b", "" + stringBuilder + "");
+		this.structureLoaded = true;
 	}
 
 	/**
@@ -51,11 +68,25 @@ public class Structure {
 	 * @param file the file that is written to
 	 */
 	public void exportConfig(File file) {
-		try {
-			config.save(file);
-		} catch (IOException ignore) {
+		if (structureLoaded) {
+			JsonObject blocksObject = new JsonObject();
+			JsonArray blocksArray = new JsonArray();
+			for (StructureBlock structureBlock : list) {
+				if (structureBlock == null) {
+					continue;
+				}
+				JsonObject tmpBlock = new JsonObject();
+				tmpBlock.add("x", new JsonPrimitive(structureBlock.x()));
+				tmpBlock.add("y", new JsonPrimitive(structureBlock.y()));
+				tmpBlock.add("z", new JsonPrimitive(structureBlock.z()));
+				tmpBlock.add("data", new JsonPrimitive(structureBlock.blockData()));
+				blocksArray.add(tmpBlock);
+			}
+			blocksObject.add("blocks", blocksArray);
+			config.jsonObject().add("structure", blocksObject);
+			config.file(file);
+			config.save();
 		}
-
 	}
 
 	/**
@@ -64,25 +95,25 @@ public class Structure {
 	 * @param file that is being loaded
 	 */
 	public void importConfig(File file) {
-		this.config = new YamlConfiguration();
-		this.structureLoaded = true;
-		try {
-			this.config.load(file);
-		} catch (IOException | InvalidConfigurationException ignore) {
-		}
+		this.config = new DPConfig(file, true);
+		if (config.jsonObject().has("structure")) {
+			JsonObject structureObject = config.jsonObject().getAsJsonObject("structure");
+			JsonArray blockArray = structureObject.getAsJsonArray("blocks");
+			if (!blockArray.isEmpty()) {
+				for (int i = 0; i < blockArray.size(); i++) {
+					this.list = new StructureBlock[blockArray.size()];
+					JsonObject obj = blockArray.get(i).getAsJsonObject();
+					list[i] = new StructureBlock(
+							obj.getAsJsonPrimitive("x").getAsInt(),
+							obj.getAsJsonPrimitive("y").getAsInt(),
+							obj.getAsJsonPrimitive("z").getAsInt(),
+							obj.getAsJsonPrimitive("data").getAsString());
+				}
 
-		String blockTag = this.config.getString("b", "");
-		String[] blockSplit = blockTag.split("#");
-		this.list = new StructureBlock[blockSplit.length + 1];
-		int counter = 1;
-
-		for (String inBlockTag : blockSplit) {
-			if (inBlockTag == null || inBlockTag.equals("")) {
-				break;
+				this.structureLoaded = true;
+				return;
 			}
-			String[] currentBlock = inBlockTag.split(":");
-			list[counter] = new StructureBlock(Integer.parseInt(currentBlock[0]), Integer.parseInt(currentBlock[1]), Integer.parseInt(currentBlock[2]), currentBlock[3]);
-			counter++;
+			this.list = new StructureBlock[0];
 		}
 	}
 
@@ -92,15 +123,14 @@ public class Structure {
 	 * @param location the location where the structure is being build
 	 */
 	public void spawn(Location location) {
-		if (!structureLoaded) {
-			return;
-		}
-		for (StructureBlock block : list) {
-			if (block == null) {
-				break;
+		if (structureLoaded) {
+			for (StructureBlock block : list) {
+				if (block == null) {
+					continue;
+				}
+				Block b = location.getWorld().getBlockAt(location.getBlockX() + block.x(), location.getBlockY() + block.y(), location.getBlockZ() + block.z());
+				b.setBlockData(Bukkit.createBlockData(block.blockData()));
 			}
-			Block b = location.getWorld().getBlockAt(location.getBlockX() + block.x(), location.getBlockY() + block.y(), location.getBlockZ() + block.z());
-			b.setBlockData(Bukkit.createBlockData(block.blockData()));
 		}
 	}
 
@@ -128,7 +158,7 @@ public class Structure {
 	 * @return a yaml configuration
 	 */
 	@Nullable
-	public YamlConfiguration getConfig() {
+	public DPConfig getConfig() {
 		return this.config;
 	}
 
