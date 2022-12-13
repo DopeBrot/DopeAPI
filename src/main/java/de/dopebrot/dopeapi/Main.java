@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class Main extends JavaPlugin implements DPMain {
+public class Main extends JavaPlugin {
 
 	private LanguageManager languageManager;
 	private final String prefix = "§a[DopeAPI]";
