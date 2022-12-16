@@ -1,0 +1,26 @@
+-----------------------------------------------------------|
+ ______   _______  _______  _______  _______  _______  ___
+|      | |       ||       ||       ||   _   ||       ||   |
+|  _    ||   _   ||    _  ||    ___||  |_|  ||    _  ||   |
+| | |   ||  | |  ||   |_| ||   |___ |       ||   |_| ||   |
+| |_|   ||  |_|  ||    ___||    ___||       ||    ___||   |
+|       ||       ||   |    |   |___ |   _   ||   |    |   |
+|______| |_______||___|    |_______||__| |__||___|    |___|
+
+-----------------------------------------------------------|
+
+-----------------------------------------------------------|
+DopeAPI:
+   Author: DopeBrot
+   Version: 8.0.0
+   GitHub: https://github.com/Hptlo/DopeAPI
+   Download: https://github.com/Hptlo/DopeAPI/releases/download/8.0.0/DopeAPI.jar
+
+JDA:
+   Author: DV8FromTheWorld
+   Version 5.0.0-beta.2
+   GitHub: https://github.com/DV8FromTheWorld/JDA
+   Download: https://github.com/DV8FromTheWorld/JDA/releases/download/v5.0.0-beta.2/JDA-5.0.0-beta.2.jar
+-----------------------------------------------------------|
+
+End of Transmission
