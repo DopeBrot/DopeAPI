@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.dopebrot</groupId>
     <artifactId>DopeAPI</artifactId>
-    <version>8.0.0</version>
+    <version>9.0.0</version>
     <build>
         <resources>
             <resource>
@@ -33,15 +33,18 @@
                                 <filter>
                                     <artifact>*:*</artifact>
                                     <excludes>
-                                        <exclude>org/</exclude>
-                                        <exclude>data/</exclude>
-                                        <exclude>configurations/</exclude>
-                                        <exclude>com/</exclude>
                                         <exclude>version.json</exclude>
-                                        <exclude>assets/</exclude>
-                                        <exclude>META-INF/</exclude>
-                                        <exclude>flightrecorder-config.jfc</exclude>
-                                        <exclude>log4j2.xml</exclude>
+                                        <exclude>com/fasterxml</exclude>
+                                        <exclude>com/google</exclude>
+                                        <exclude>com/iwebpp</exclude>
+                                        <exclude>kotlin</exclude>
+                                        <exclude>META-INF</exclude>
+                                        <exclude>natives</exclude>
+                                        <exclude>okhttp3</exclude>
+                                        <exclude>okio</exclude>
+                                        <exclude>org/intellij</exclude>
+                                        <exclude>org/jetbrains</exclude>
+                                        <exclude>module-info.class</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
@@ -58,6 +61,12 @@
         </repository>
     </repositories>
     <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
