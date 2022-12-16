@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class Structure {
 
@@ -167,6 +168,18 @@ public class Structure {
 	 */
 	public boolean isStructureLoaded() {
 		return this.structureLoaded;
+	}
+
+	@Override
+	public String toString() {
+		return "Structure{" +
+				"list=" + Arrays.toString(list) +
+				", config=" + config +
+				", structureLoaded=" + structureLoaded +
+				", sizeX=" + sizeX +
+				", sizeY=" + sizeY +
+				", sizeZ=" + sizeZ +
+				'}';
 	}
 
 }
