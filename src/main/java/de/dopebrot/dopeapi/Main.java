@@ -20,13 +20,20 @@ public class Main extends JavaPlugin {
 	private Structure structure;
 
 	public void log(String s) {
-		this.getLogger().log(Level.INFO, s);
+		log(Level.INFO, s);
+	}
+
+	public void log(Level level, String s) {
+		this.getLogger().log(level, s);
 	}
 
 	public void onEnable() {
 		registerCommands();
 		loadDefaultConfigs();
 		loadLanguage();
+		for (String line : DPJava.getResourceFile(this, "console.txt").lines().toList()) {
+			log(Level.INFO, line);
+		}
 	}
 
 	/**
