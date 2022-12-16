@@ -1,6 +1,14 @@
 # DopeAPI
 A simple Minecraft Paper API
 
+## Things i used:
+
+<a href="https://github.com/DV8FromTheWorld/JDA">JDA: Discord Java API</a>
+
+<a href="https://gist.github.com/DevSrSouza/aa2f39fb2299dfe72b49b52fa46d9a73">Bukkit ItemStack Parser</a>
+
+
+
 ## Server Admins:
 #### If a Minecraft Plugin Depends on this plugin you'll need to add it to you Minecraft Server by simply Download it and move it in the plugins folder.
 
