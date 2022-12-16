@@ -72,6 +72,7 @@ public class DPConfig {
 
 	/**
 	 * Saves the config if {@link #file} is set
+	 *
 	 * @author DopeBrot
 	 * @since 7.0
 	 */
@@ -89,6 +90,7 @@ public class DPConfig {
 
 	/**
 	 * Unloads the config to save Memory.
+	 *
 	 * @author DopeBrot
 	 * @since 7.0
 	 */
@@ -99,6 +101,7 @@ public class DPConfig {
 
 	/**
 	 * Adds a {@link Location} property to an {@link JsonObject}
+	 *
 	 * @author DopeBrot
 	 * @since 7.0
 	 */
@@ -115,9 +118,10 @@ public class DPConfig {
 
 	/**
 	 * Gets an {@link Location} from an existing {@link JsonObject}
+	 *
+	 * @return {@link Location} or Null if config couldn't find the Path
 	 * @author DopeBrot
 	 * @since 7.0
-	 * @return {@link Location} or Null if config couldn't find the Path
 	 */
 	@Nullable
 	public Location getLocation(JsonObject object) {
@@ -132,9 +136,9 @@ public class DPConfig {
 	}
 
 	/**
+	 * @return {@link #jsonObject}
 	 * @author DopeBrot
 	 * @since 7.0
-	 * @return {@link #jsonObject}
 	 */
 	@NotNull
 	public JsonObject jsonObject() {
@@ -142,28 +146,28 @@ public class DPConfig {
 	}
 
 	/**
+	 * @return {@link #gson}
 	 * @author DopeBrot
 	 * @since 7.0
-	 * @return {@link #gson}
 	 */
 	public Gson gson() {
 		return this.gson;
 	}
 
 	/**
+	 * @return {@link #gson} or Null if there is no file
 	 * @author DopeBrot
 	 * @since 7.0
-	 * @return {@link #gson} or Null if there is no file
 	 */
 	@Nullable
 	public File configFile() {
 		return file;
 	}
 
-	/**
+		/**
+	 * @return true if there is a file
 	 * @author DopeBrot
 	 * @since 7.0
-	 * @return true if there is a file
 	 */
 	public boolean hasFile() {
 		return fileLoaded;
@@ -727,4 +731,10 @@ public class DPConfig {
 	//</editor-fold>
 
 	private static final String[] BYPASS_CLASS = {"CraftMetaBlockState", "CraftMetaItem", "GlowMetaItem"};
+
+	@Override
+	public String toString() {
+		return "DPConfig{" + "gson=" + gson + ", file=" + file + "}";
+	}
+
 }
