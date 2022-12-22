@@ -16,14 +16,23 @@ public abstract class DiscordManager extends ListenerAdapter {
 		this.onEnable();
 	}
 
+	/**
+	 * this enables things in the discord manager
+	 */
 	public abstract void onEnable();
 
+	/**
+	 * this disables things in the discord manager
+	 */
 	public abstract void onDisable();
 
 	public JDA jda() {
 		return jda;
 	}
 
+	/**
+	 * creates a default jda builder only for testing.
+	 */
 	public static JDABuilder getDefault(String discordToken) {
 		return JDABuilder.create(discordToken, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS)
 				.disableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOJI, CacheFlag.STICKER, CacheFlag.SCHEDULED_EVENTS)
@@ -31,6 +40,5 @@ public abstract class DiscordManager extends ListenerAdapter {
 				.setMemberCachePolicy(MemberCachePolicy.ALL)
 				.enableCache(CacheFlag.ONLINE_STATUS);
 	}
-
 
 }
