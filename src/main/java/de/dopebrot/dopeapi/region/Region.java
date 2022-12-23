@@ -4,6 +4,13 @@ import org.bukkit.World;
 
 import java.util.UUID;
 
+/**
+ * A region defines a space between to coordinates.
+ * @author DopeBrot
+ * @see RegionManager
+ * @since 7.0
+ */
+
 public class Region {
 
 	private final Location start;
@@ -15,6 +22,8 @@ public class Region {
 	 * @param start starting location of the region
 	 * @param end   ending location of the region
 	 * @apiNote if the starting location is bigger than the ending it will be switched accordingly
+	 * @author DopeBrot
+	 * @since 7.0
 	 */
 	public Region(Location start, Location end) {
 		this.regionUUID = UUID.randomUUID();
@@ -50,6 +59,9 @@ public class Region {
 
 	/**
 	 * sets the name of the region
+	 *
+	 * @author DopeBrot
+	 * @since 7.0
 	 */
 	public void setRegionName(String regionName) {
 		this.regionName = regionName;
@@ -57,6 +69,8 @@ public class Region {
 
 	/**
 	 * @return starting location of region
+	 * @author DopeBrot
+	 * @since 7.0
 	 */
 	public Location getStart() {
 		return this.start;
@@ -64,15 +78,23 @@ public class Region {
 
 	/**
 	 * @return ending location of region
+	 * @author DopeBrot
+	 * @since 7.0
 	 */
 	public Location getEnd() {
 		return this.end;
 	}
 
 	/**
-	 * array size = 4
+	 * array size = 4 <br></br>
+	 * {@index 0} = x*y*z size<br></br>
+	 * {@index 1} = x size<br></br>
+	 * {@index 2} = y size<br></br>
+	 * {@index 3} = z size<br></br>
 	 *
 	 * @return size of the region
+	 * @author DopeBrot
+	 * @since 7.0
 	 */
 	public double[] size() {
 		double x = end.getX() - start.getX();
@@ -84,6 +106,8 @@ public class Region {
 
 	/**
 	 * @return custom uuid of the region
+	 * @author DopeBrot
+	 * @since 7.0
 	 */
 	public UUID getRegionUUID() {
 		return regionUUID;
@@ -91,11 +115,18 @@ public class Region {
 
 	/**
 	 * @return custom name of the region
+	 * @author DopeBrot
+	 * @since 7.0
 	 */
 	public String getRegionName() {
 		return regionName;
 	}
 
+	/**
+	 * @return a string in json format
+	 * @author DopeBrot
+	 * @since 7.0
+	 */
 	@Override
 	public String toString() {
 		return "Region{start=[" + start + "], end=[" + end + "], regionUUID=[" + regionUUID + "], regionName=['" + regionName + "\']}";
