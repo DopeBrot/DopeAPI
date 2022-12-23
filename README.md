@@ -20,21 +20,11 @@ What can this thing do:
 + **Manage Configurations**
 + **Manage Regions**
 + **Manage Structures**
++ **Manage Delayed Actions**
++ **Manage Discord Bots**
 
 ### Language Manager:
-english.json
-```json
-{
-"language": {
-	"key": "en",
-	"name": "english",
-	"messages": [
-      {"key":"plugin.load", "message":"plugin is loading with version %0%"},
-      {"key":"plugin.unload", "message":"plugin is unloading"}
-                ]
-	}
-}
-```
+
 ```java
 private LanguageManager languageManager;
 private final String version = "1.0";
@@ -50,6 +40,20 @@ public void init() {
 }
 ```
 
+english.json
+```json
+{
+"language": {
+	"key": "en",
+	"name": "english",
+	"messages": [
+      {"key":"plugin.load", "message":"plugin is loading with version %0%"},
+      {"key":"plugin.unload", "message":"plugin is unloading"}
+                ]
+	}
+}
+```
+
 <hr>
 
 ### Config Manager:
@@ -58,20 +62,17 @@ public void init() {
 private final File configFile = new File("config.json");
 private final boolean load = true;
 public void init() {
-	JsonElement element = new JsonObject();
 	DPConfig config = new DPConfig(this.configFile,load);
-	config.builder()
-	.addString("version", "1.0")
-	.addNumber("random", 5)
-	.addElement("element", element).build();
-	config.save();
+	config.jsonObject().add("name",new JsonPrimitive("Dave"));
+	config.jsonObject().add("password",new JsonPrimitive("123456789"));
+	config.jsonObject().add("element",new JsonObject());
 }
 ```
 config.json
 ```json
 {
-"version": "1.0",
-"random" 5,
+"name": "Dave",
+"password": "123456789",
 "element": {}
 }
 ```
