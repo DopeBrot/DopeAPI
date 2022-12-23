@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * The type Animated structure.
+ * V=alpha 0.1
  */
 public class AnimatedStructure {
 
@@ -16,7 +17,7 @@ public class AnimatedStructure {
 	private final int period;
 	private int taskID;
 	private int currentFrame;
-	private Location setSpawn;
+	private final Location setSpawn;
 
 	/**
 	 * Instantiates a new Animated structure.
@@ -66,7 +67,7 @@ public class AnimatedStructure {
 
 	private void updateAnimation() {
 		if (currentFrame > structureKeyFrames.size()) {currentFrame = 0;}
-		this.structureKeyFrames.get(currentFrame).getStructure().spawn(setSpawn);
+		this.structureKeyFrames.get(currentFrame).structure().spawn(setSpawn);
 		currentFrame++;
 	}
 
