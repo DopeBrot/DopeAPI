@@ -14,7 +14,7 @@ public class Timed {
 
 	private final UUID id;
 	private int ticks;
-	private int starting;
+	private final int starting;
 	private boolean alive;
 
 	/**
