@@ -8,6 +8,18 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.util.HashMap;
 
+/**
+ * A default Language could look like this:<br>
+ *<pre>
+ * {@link #file} = "english.json"
+ * {@link #key} = "en"
+ * {@link #name} = "english"</pre>
+ * A {@link Language} defines {@link #key} for example "player.disconnect" and {@link #messages} "%0% disconnected!"<br>
+ * every {@link Language} has its own {@link File}, {@link DPConfig}. <br>
+ * you can check if the language has a key
+ *
+ */
+
 public class Language {
 
 	private final File file;
@@ -102,6 +114,16 @@ public class Language {
 			}
 		}
 	}
+
+	/**
+	 * unloads the Language to save Memory
+	 */
+	public void unload() {
+		JsonObject languageConfig = new JsonObject();
+		messages.clear();
+	}
+
+
 	public boolean has(String message) {
 		return messages.containsKey(message);
 	}
