@@ -16,7 +16,7 @@ public class Main extends JavaPlugin {
 	private final String prefix = "§a[DopeAPI]";
 	public final String permissionBase = "dpapi.";
 	public ArrayList<DPCommand> commands;
-	private final String version = "8.0.0";
+	private final String version = "9.0.0";
 	private Structure structure;
 
 	public void log(String s) {
@@ -50,7 +50,6 @@ public class Main extends JavaPlugin {
 	 */
 	private void loadLanguage() {
 		this.languageManager = new LanguageManager(new File("plugins/DopeAPI/lang"));
-		languageManager.setDebug(true);
 		languageManager.load();
 		log(getString("en", "plugin.loading").replace("%0%", version));
 	}
