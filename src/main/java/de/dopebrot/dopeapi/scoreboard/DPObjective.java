@@ -7,6 +7,9 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 
+/**
+ * @version alpha 0.1
+ */
 public class DPObjective {
 
 	private final ArrayList<Score> scores;
