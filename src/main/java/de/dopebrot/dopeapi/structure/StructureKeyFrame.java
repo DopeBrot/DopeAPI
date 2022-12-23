@@ -5,34 +5,35 @@ package de.dopebrot.dopeapi.structure;
 public class StructureKeyFrame {
 
 	private Structure structure;
-	private int wait;
+	private int delay;
 
 	/**
 	 * Instantiates a new Structure key frame.
 	 *
 	 * @param structure the structure
-	 * @param wait      the wait
+	 * @param wait      the delay
 	 */
 	public StructureKeyFrame(Structure structure, int wait) {
 		this.structure = structure;
-		this.wait = wait;
+		this.delay = wait;
 	}
 
 	/**
-	 * Gets structure.
+	 * gets the {@link Structure}.
 	 *
-	 * @return the structure
+	 * @return the {@link Structure}
 	 */
-	public Structure getStructure() {
+	public Structure structure() {
 		return structure;
 	}
+
 	/**
-	 * Gets wait.
+	 * Gets delay.
 	 *
-	 * @return the wait
+	 * @return int as delay
 	 */
-	public int getWait() {
-		return wait;
+	public int delay() {
+		return delay;
 	}
 
 }
