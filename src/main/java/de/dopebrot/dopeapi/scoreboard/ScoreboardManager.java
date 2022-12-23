@@ -8,6 +8,10 @@ import org.bukkit.scoreboard.Scoreboard;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @version alpha 0.3
+ */
+
 public class ScoreboardManager {
 
 	private final Scoreboard scoreboard;
@@ -74,7 +78,7 @@ public class ScoreboardManager {
 
 	public DPObjective registerObjective(int id, String name, String displayName) {
 		DPObjective objective = new DPObjective(scoreboard, id, name, displayName);
-		this.objectives.put(id,objective);
+		this.objectives.put(id, objective);
 		return objective;
 	}
 
