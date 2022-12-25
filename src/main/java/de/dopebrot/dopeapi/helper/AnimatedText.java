@@ -4,18 +4,18 @@ import java.util.Random;
 
 public class AnimatedText {
 
-	private final String acceptableCharacters;
-	private ArrayList<ChangeableCharacter> characters;
+	private String acceptableCharacters;
+	private String message;
+	private final ArrayList<ChangeableCharacter> characters;
 	private final String defaultString;
-	private String output;
 	private final Random random;
 	private boolean isFinished;
 
 	public AnimatedText(String input, int minAmount, int maxAmount) {
-		random = new Random();
+		this.random = new Random();
 		this.defaultString = input;
 		this.isFinished = false;
-		this.output = "input";
+		this.message = "";
 		this.characters = new ArrayList<>();
 		this.acceptableCharacters = "abcdefghijklmnopqrstqvwxyzABCDEFGHIJKLMNOPQRSTVWXYZ1234567890 .,_;:!\"$%&/()[]{}=?\\?+*~#'@^°><|";
 		for (char c : input.toCharArray()) {
@@ -24,7 +24,7 @@ public class AnimatedText {
 	}
 
 	public void update() {
-		boolean all = true;
+		boolean charactersFinished = true;
 		if (!isFinished) {
 			StringBuilder builder = new StringBuilder();
 			for (ChangeableCharacter c : characters) {
@@ -32,22 +32,26 @@ public class AnimatedText {
 					builder.append(c.character());
 					continue;
 				}
-				all = false;
+				charactersFinished = false;
 				builder.append(acceptableCharacters.charAt(random.nextInt(acceptableCharacters.length())));
 				c.update();
 			}
 
-			output = builder.toString();
-			if (all) {
+			message = builder.toString();
+			if (charactersFinished) {
 				this.isFinished = true;
 			}
 			return;
 		}
-		output = defaultString;
+		message = defaultString;
 	}
 
-	public String getCurrent() {
-		return output;
+	public String getMessage() {
+		return message;
+	}
+
+	public void setCharacters(String characters) {
+		this.acceptableCharacters = characters;
 	}
 
 }
