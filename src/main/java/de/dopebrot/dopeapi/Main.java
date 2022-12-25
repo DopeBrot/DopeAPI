@@ -1,19 +1,16 @@
 package de.dopebrot.dopeapi;
 
-import de.dopebrot.dopeapi.helper.ConsoleText;
-import de.dopebrot.dopeapi.helper.DPCommand;
 import de.dopebrot.dopeapi.helper.DPJava;
 import de.dopebrot.dopeapi.language.LanguageManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
 
 	private LanguageManager languageManager;
-	public ArrayList<DPCommand> commands;
+//	public ArrayList<DPCommand> commands;
 	private final String version = "9.0.0";
 
 	public void log(String s) {
@@ -62,8 +59,8 @@ public class Main extends JavaPlugin {
 	 * registers commands
 	 */
 	private void registerCommands() {
-		ConsoleText consoleText = new ConsoleText();
-		consoleText.write("TEST");
+		//		ConsoleText consoleText = new ConsoleText();
+		//		consoleText.write("TEST");
 	}
 
 	public void onDisable() {
